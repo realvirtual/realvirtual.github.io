@@ -907,71 +907,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 
 
-    <div class="flex-col space-y-2 justify-center items-center">
-<button id="loginButton" onclick="" class="mx-auto rounded-md p-2 bg-purple-500 text-white" style="
-    position:absolute;
-    top:11px;
-    font-weight:900;
-    right:15px;
-    z-index:1;
-    width: 5%;
-    background-size: contain;
-    height: 9vh;
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1200px-MetaMask_Fox.svg.png);
-    background-repeat:no-repeat;
-    "></button>
-    <p id='userWallet' style="position: absolute;z-index:1;" class='text-lg text-gray-600 my-2'></p>
-  </div>
 
-  <script>
-    window.userWalletAddress = null
-    const loginButton = document.getElementById('loginButton')
-    const userWallet = document.getElementById('userWallet')
-
-    function toggleButton() {
-      if (!window.ethereum) {
-        loginButton.innerText = 'MetaMask is not installed'
-        loginButton.classList.remove('bg-purple-500', 'text-white')
-        loginButton.classList.add('bg-gray-500', 'text-gray-100', 'cursor-not-allowed')
-        return false
-      }
-
-      loginButton.addEventListener('click', loginWithMetaMask)
-    }
-
-    async function loginWithMetaMask() {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-        .catch((e) => {
-          console.error(e.message)
-          return
-        })
-      if (!accounts) { return }
-
-      window.userWalletAddress = accounts[0]
-      userWallet.innerText = window.userWalletAddress
-      loginButton.innerText = window.userWalletAddress.substr(0,6)
-
-      loginButton.removeEventListener('click', loginWithMetaMask)
-      setTimeout(() => {
-        loginButton.addEventListener('click', signOutOfMetaMask)
-      }, 200)
-    }
-
-    function signOutOfMetaMask() {
-      window.userWalletAddress = null
-      userWallet.innerText = ''
-      loginButton.innerText = 'войти'
-
-      loginButton.removeEventListener('click', signOutOfMetaMask)
-      setTimeout(() => {
-        loginButton.addEventListener('click', loginWithMetaMask)
-      }, 200)
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      toggleButton()
-    });
-  </script>
 
 
 
@@ -1101,9 +1037,83 @@ Ensure the default browser behavior of the `hidden` attribute.
                      <a class="mb-3 sm:mb-0 mt-4 sm:mt-0 ml-0 sm:ml-7" href="https://realvirtual.github.io/axlr/#collections">Collections</a>
 <a class="mb-3 sm:mb-0 ml-0 sm:ml-7" href="https://realvirtual.github.io/axlr/#feature">Feature</a>
 <a class="mb-3 sm:mb-0 ml-0 sm:ml-7 mr-0 sm:mr-7" href="https://realvirtual.github.io/axlr/#faq">FAQ</a>
-<button class="py-2 px-5 text-center rounded-xl btn_primary text-white shadow-sm ">Select Wallet</button>
+<button id="loginButton" onclick="" style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1200px-MetaMask_Fox.svg.png);
+    background-repeat:no-repeat;" class="py-2 px-5 text-center rounded-xl btn_primary text-white shadow-sm ">Select Wallet</button>
                   </div>
                </div>
+
+
+
+    <div class="flex-col space-y-2 justify-center items-center">
+<button class="mx-auto rounded-md p-2 bg-purple-500 text-white" style="
+    position:absolute;
+    top:11px;
+    font-weight:900;
+    right:15px;
+    z-index:1;
+    width: 5%;
+    background-size: contain;
+    height: 9vh;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1200px-MetaMask_Fox.svg.png);
+    background-repeat:no-repeat;
+    "></button>
+    <p id='userWallet' style="position: absolute;z-index:1;opacity:0;" class='text-lg text-gray-600 my-2'></p>
+  </div>
+
+  <script>
+    window.userWalletAddress = null
+    const loginButton = document.getElementById('loginButton')
+    const userWallet = document.getElementById('userWallet')
+
+    function toggleButton() {
+      if (!window.ethereum) {
+        loginButton.innerText = 'MetaMask is not installed'
+        loginButton.classList.remove('bg-purple-500', 'text-white')
+        loginButton.classList.add('bg-gray-500', 'text-gray-100', 'cursor-not-allowed')
+        return false
+      }
+
+      loginButton.addEventListener('click', loginWithMetaMask)
+    }
+
+    async function loginWithMetaMask() {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        .catch((e) => {
+          console.error(e.message)
+          return
+        })
+      if (!accounts) { return }
+
+      window.userWalletAddress = accounts[0]
+      userWallet.innerText = window.userWalletAddress
+      loginButton.innerText = window.userWalletAddress.substr(0,6)
+
+      loginButton.removeEventListener('click', loginWithMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', signOutOfMetaMask)
+      }, 200)
+    }
+
+    function signOutOfMetaMask() {
+      window.userWalletAddress = null
+      userWallet.innerText = ''
+      loginButton.innerText = 'войти'
+
+      loginButton.removeEventListener('click', signOutOfMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', loginWithMetaMask)
+      }, 200)
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      toggleButton()
+    });
+  </script>
+
+
+
+
+
                <div class="block sm:hidden cursor-pointer">
                   <span style="box-sizing:border-box;display:inline-block;overflow:hidden;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;position:relative;max-width:100%">
                      <span style="box-sizing:border-box;display:block;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0;max-width:100%"><img style="display:block;max-width:100%;width:initial;height:initial;background:none;opacity:1;border:0;margin:0;padding:0" alt="" aria-hidden="true" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"></span>
