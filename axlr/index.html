@@ -901,6 +901,79 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 ::-webkit-scrollbar{width:1px;}
 </style>
+
+
+
+
+
+  <center>
+    <div class="flex-col space-y-2 justify-center items-center">
+<button id="loginButton" onclick="" class="mx-auto rounded-md p-2 bg-purple-500 text-white" style="
+    position:absolute;
+    top:11px;
+    font-weight:900;
+    right:15px;
+    z-index:1;
+    width: 5%;
+    background-size: contain;
+    height: 9vh;
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1200px-MetaMask_Fox.svg.png);
+    "></button>
+    <p id='userWallet' style="position: absolute;z-index:1;" class='text-lg text-gray-600 my-2'></p>
+  </div>
+  </center>
+  <script>
+    window.userWalletAddress = null
+    const loginButton = document.getElementById('loginButton')
+    const userWallet = document.getElementById('userWallet')
+
+    function toggleButton() {
+      if (!window.ethereum) {
+        loginButton.innerText = 'MetaMask is not installed'
+        loginButton.classList.remove('bg-purple-500', 'text-white')
+        loginButton.classList.add('bg-gray-500', 'text-gray-100', 'cursor-not-allowed')
+        return false
+      }
+
+      loginButton.addEventListener('click', loginWithMetaMask)
+    }
+
+    async function loginWithMetaMask() {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        .catch((e) => {
+          console.error(e.message)
+          return
+        })
+      if (!accounts) { return }
+
+      window.userWalletAddress = accounts[0]
+      userWallet.innerText = window.userWalletAddress
+      loginButton.innerText = window.userWalletAddress
+
+      loginButton.removeEventListener('click', loginWithMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', signOutOfMetaMask)
+      }, 200)
+    }
+
+    function signOutOfMetaMask() {
+      window.userWalletAddress = null
+      userWallet.innerText = ''
+      loginButton.innerText = 'войти'
+
+      loginButton.removeEventListener('click', signOutOfMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', loginWithMetaMask)
+      }, 200)
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      toggleButton()
+    });
+  </script>
+
+
+
 <noscript id="__next_css__DO_NOT_USE__"></noscript>
 <style data-emotion="css sanqhm" data-s="">
   .css-sanqhm{opacity:0;}</style>
