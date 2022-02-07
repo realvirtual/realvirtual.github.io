@@ -1097,7 +1097,7 @@ Ensure the default browser behavior of the `hidden` attribute.
     function signOutOfMetaMask() {
       window.userWalletAddress = null
       userWallet.innerText = ''
-      loginButton.innerText = 'войти'
+      loginButton.innerText = ' ' /*enter*/
 
       loginButton.removeEventListener('click', signOutOfMetaMask)
       setTimeout(() => {
