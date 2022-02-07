@@ -948,7 +948,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
       window.userWalletAddress = accounts[0]
       userWallet.innerText = window.userWalletAddress
-      loginButton.innerText = window.userWalletAddress
+      loginButton.innerText = window.userWalletAddress.substr(0,6)
 
       loginButton.removeEventListener('click', loginWithMetaMask)
       setTimeout(() => {
