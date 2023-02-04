@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Arctika script';
+    src: url('Arctikascript.woff2') format('woff2'),
+        url('Arctikascript.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
